@@ -1,0 +1,36 @@
+\hypertarget{struct__SGHEADER}{}\doxysection{Dokumentacja struktury \+\_\+\+S\+G\+H\+E\+A\+D\+ER}
+\label{struct__SGHEADER}\index{\_SGHEADER@{\_SGHEADER}}
+
+
+{\ttfamily \#include $<$structures.\+h$>$}
+
+\doxysubsection*{Pola danych}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \mbox{\hyperlink{struct__SGHEADER_aa86b56c8353f79897f14611e418e4c18}{H\+E\+A\+D\+ER}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{struct__SGHEADER_af511160a96fc831c709c92e518868dc4}{F\+I\+L\+E\+S\+I\+ZE}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+struktura opisująca nagłówek specyficzny dla pliku z ukrytym plikiem, zapisywana zawsze na pierwszych 72 pojedynczych bitach tablicy pixeli 
+
+\doxysubsection{Dokumentacja pól}
+\mbox{\Hypertarget{struct__SGHEADER_af511160a96fc831c709c92e518868dc4}\label{struct__SGHEADER_af511160a96fc831c709c92e518868dc4}} 
+\index{\_SGHEADER@{\_SGHEADER}!FILESIZE@{FILESIZE}}
+\index{FILESIZE@{FILESIZE}!\_SGHEADER@{\_SGHEADER}}
+\doxysubsubsection{\texorpdfstring{FILESIZE}{FILESIZE}}
+{\footnotesize\ttfamily uint16\+\_\+t \+\_\+\+S\+G\+H\+E\+A\+D\+E\+R\+::\+F\+I\+L\+E\+S\+I\+ZE}
+
+wielkość pliku (1 bajt) \mbox{\Hypertarget{struct__SGHEADER_aa86b56c8353f79897f14611e418e4c18}\label{struct__SGHEADER_aa86b56c8353f79897f14611e418e4c18}} 
+\index{\_SGHEADER@{\_SGHEADER}!HEADER@{HEADER}}
+\index{HEADER@{HEADER}!\_SGHEADER@{\_SGHEADER}}
+\doxysubsubsection{\texorpdfstring{HEADER}{HEADER}}
+{\footnotesize\ttfamily char$\ast$ \+\_\+\+S\+G\+H\+E\+A\+D\+E\+R\+::\+H\+E\+A\+D\+ER}
+
+nagłówek steganograficzny, jeżeli jest równy \char`\"{}\+S\+G\textbackslash{}0\char`\"{}, plik zawiera ukryte informacje (wielkość\+: 2 bajty) 
+
+Dokumentacja dla tej struktury została wygenerowana z pliku\+:\begin{DoxyCompactItemize}
+\item 
+include/structures.\+h\end{DoxyCompactItemize}
