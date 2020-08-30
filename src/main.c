@@ -106,6 +106,9 @@ int main(int argc, char* argv[]) {
             }
             if(read_headers(sourceImage, &bmpHeader, &dibHeader)==0){
                 printf("Błąd odczytu nagłówków z pliku!\n");
+                fclose(sourceFile);
+                fclose(destinationImage);
+                fclose(sourceImage);
                 return 1;
             }
             pixelCount = dibHeader.WIDTH * dibHeader.HEIGHT;
@@ -127,7 +130,12 @@ int main(int argc, char* argv[]) {
                 case 32:
                     pixelArray = pixelArray_read_32bit(sourceImage, pixelCount);
                     break;
+                default:
+                    pixelArray = 0;
+                    break;
             }
+            printf("DEBUG FILESIZE HEADER: %d\n", bmpHeader.SIZE);
+            printf("DEBUG FILESIZE CALCULATE: %d\n", sizeof(bmpHeader)+sizeof(dibHeader)+pixelCount*3);
             dataArray = read_file_to_memory(sourceFile, &sourceFileSize,
                                             &dataArraySize);
             if(pixelArray) {
@@ -148,11 +156,18 @@ int main(int argc, char* argv[]) {
                 }
                 else{
                     printf("Błąd: brak tablicy bajtów!\n");
+                    free(pixelArray);
+                    fclose(sourceImage);
+                    fclose(sourceFile);
+                    fclose(destinationImage);
                     return 1;
                 }
             }
             else{
                 printf("Błąd: brak tablicy pixeli!\n");
+                fclose(sourceImage);
+                fclose(sourceFile);
+                fclose(destinationImage);
                 return 1;
             }
             free(bmpHeader.HEADER);
@@ -215,6 +230,8 @@ int main(int argc, char* argv[]) {
             }
             else{
                 printf("Błąd: brak tablicy pixeli!\n");
+                fclose(sourceImage);
+                fclose(resultFile);
                 return 1;
             }
             free(bmpHeader.HEADER);

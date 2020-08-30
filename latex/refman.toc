@@ -1,0 +1,69 @@
+\@ifundefined {etoctocstyle}{\let \etoc@startlocaltoc \@gobble \let \etoc@settocdepth \@gobble \let \etoc@depthtag \@gobble \let \etoc@setlocaltop \@gobble }{}
+\babel@toc {polish}{}
+\contentsline {chapter}{\numberline {1}Projekt -\/ steganografia w pliku B\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}MP}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Założenia}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Limitacje}{1}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Użycie}{1}{section.1.3}%
+\contentsline {chapter}{\numberline {2}Indeks struktur danych}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Struktury danych}{3}{section.2.1}%
+\contentsline {chapter}{\numberline {3}Indeks plików}{5}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Lista plików}{5}{section.3.1}%
+\contentsline {chapter}{\numberline {4}Dokumentacja struktur danych}{7}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Dokumentacja struktury \discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}B\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}I\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}T\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}F\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}I\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}L\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}E\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}DS}{7}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Opis szczegółowy}{7}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Dokumentacja pól}{7}{subsection.4.1.2}%
+\contentsline {subsubsection}{\numberline {4.1.2.1}alphaMask}{7}{subsubsection.4.1.2.1}%
+\contentsline {subsubsection}{\numberline {4.1.2.2}blueMask}{7}{subsubsection.4.1.2.2}%
+\contentsline {subsubsection}{\numberline {4.1.2.3}greenMask}{8}{subsubsection.4.1.2.3}%
+\contentsline {subsubsection}{\numberline {4.1.2.4}redMask}{8}{subsubsection.4.1.2.4}%
+\contentsline {subsubsection}{\numberline {4.1.2.5}xMask}{8}{subsubsection.4.1.2.5}%
+\contentsline {section}{\numberline {4.2}Dokumentacja struktury \discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}B\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}M\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}P\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}H\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}E\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}A\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}D\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}ER}{8}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Opis szczegółowy}{8}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Dokumentacja pól}{8}{subsection.4.2.2}%
+\contentsline {subsubsection}{\numberline {4.2.2.1}HEADER}{9}{subsubsection.4.2.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2.2}OFFSET}{9}{subsubsection.4.2.2.2}%
+\contentsline {subsubsection}{\numberline {4.2.2.3}RESERVED1}{9}{subsubsection.4.2.2.3}%
+\contentsline {subsubsection}{\numberline {4.2.2.4}RESERVED2}{9}{subsubsection.4.2.2.4}%
+\contentsline {subsubsection}{\numberline {4.2.2.5}SIZE}{9}{subsubsection.4.2.2.5}%
+\contentsline {section}{\numberline {4.3}Dokumentacja struktury \discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}D\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}I\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}B\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}H\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}E\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}A\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}D\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}ER}{9}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Opis szczegółowy}{10}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Dokumentacja pól}{10}{subsection.4.3.2}%
+\contentsline {subsubsection}{\numberline {4.3.2.1}BITSPERPIXEL}{10}{subsubsection.4.3.2.1}%
+\contentsline {subsubsection}{\numberline {4.3.2.2}COLORPLANES}{10}{subsubsection.4.3.2.2}%
+\contentsline {subsubsection}{\numberline {4.3.2.3}COLORS}{10}{subsubsection.4.3.2.3}%
+\contentsline {subsubsection}{\numberline {4.3.2.4}COMPRESSION}{10}{subsubsection.4.3.2.4}%
+\contentsline {subsubsection}{\numberline {4.3.2.5}DIBSIZE}{10}{subsubsection.4.3.2.5}%
+\contentsline {subsubsection}{\numberline {4.3.2.6}HEIGHT}{10}{subsubsection.4.3.2.6}%
+\contentsline {subsubsection}{\numberline {4.3.2.7}HORIZONTALRES}{11}{subsubsection.4.3.2.7}%
+\contentsline {subsubsection}{\numberline {4.3.2.8}IMPORTANTCOLORS}{11}{subsubsection.4.3.2.8}%
+\contentsline {subsubsection}{\numberline {4.3.2.9}SIZE}{11}{subsubsection.4.3.2.9}%
+\contentsline {subsubsection}{\numberline {4.3.2.10}VERTICALRES}{11}{subsubsection.4.3.2.10}%
+\contentsline {subsubsection}{\numberline {4.3.2.11}WIDTH}{11}{subsubsection.4.3.2.11}%
+\contentsline {section}{\numberline {4.4}Dokumentacja struktury \discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}S\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}G\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}H\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}E\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}A\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}D\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}ER}{11}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Opis szczegółowy}{12}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Dokumentacja pól}{12}{subsection.4.4.2}%
+\contentsline {subsubsection}{\numberline {4.4.2.1}FILESIZE}{12}{subsubsection.4.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.4.2.2}HEADER}{12}{subsubsection.4.4.2.2}%
+\contentsline {chapter}{\numberline {5}Dokumentacja plików}{13}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Dokumentacja pliku src/functions.c}{13}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Opis szczegółowy}{14}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Dokumentacja funkcji}{14}{subsection.5.1.2}%
+\contentsline {subsubsection}{\numberline {5.1.2.1}check\_for\_stegano()}{14}{subsubsection.5.1.2.1}%
+\contentsline {subsubsection}{\numberline {5.1.2.2}GCD()}{14}{subsubsection.5.1.2.2}%
+\contentsline {subsubsection}{\numberline {5.1.2.3}LCM()}{15}{subsubsection.5.1.2.3}%
+\contentsline {subsubsection}{\numberline {5.1.2.4}pixelArray\_read\_16bit()}{15}{subsubsection.5.1.2.4}%
+\contentsline {subsubsection}{\numberline {5.1.2.5}pixelArray\_read\_24bit()}{16}{subsubsection.5.1.2.5}%
+\contentsline {subsubsection}{\numberline {5.1.2.6}pixelArray\_read\_32bit()}{16}{subsubsection.5.1.2.6}%
+\contentsline {subsubsection}{\numberline {5.1.2.7}prepare\_data\_to\_write()}{16}{subsubsection.5.1.2.7}%
+\contentsline {subsubsection}{\numberline {5.1.2.8}read\_data\_from\_steganofile\_16bit()}{17}{subsubsection.5.1.2.8}%
+\contentsline {subsubsection}{\numberline {5.1.2.9}read\_data\_from\_steganofile\_24\_32bit()}{17}{subsubsection.5.1.2.9}%
+\contentsline {subsubsection}{\numberline {5.1.2.10}read\_file\_to\_memory()}{18}{subsubsection.5.1.2.10}%
+\contentsline {subsubsection}{\numberline {5.1.2.11}read\_headers()}{18}{subsubsection.5.1.2.11}%
+\contentsline {subsubsection}{\numberline {5.1.2.12}write\_data\_16bit()}{19}{subsubsection.5.1.2.12}%
+\contentsline {subsubsection}{\numberline {5.1.2.13}write\_data\_24bit()}{19}{subsubsection.5.1.2.13}%
+\contentsline {subsubsection}{\numberline {5.1.2.14}write\_data\_32bit()}{20}{subsubsection.5.1.2.14}%
+\contentsline {subsubsection}{\numberline {5.1.2.15}write\_data\_array\_to\_file()}{20}{subsubsection.5.1.2.15}%
+\contentsline {subsubsection}{\numberline {5.1.2.16}write\_data\_from\_image()}{21}{subsubsection.5.1.2.16}%
+\contentsline {subsubsection}{\numberline {5.1.2.17}write\_data\_to\_image()}{21}{subsubsection.5.1.2.17}%
+\contentsline {subsubsection}{\numberline {5.1.2.18}write\_headers()}{22}{subsubsection.5.1.2.18}%
+\contentsline {chapter}{Indeks}{23}{section*.6}%

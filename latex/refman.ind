@@ -1,0 +1,179 @@
+\begin{theindex}
+
+  \item {\_BITFILEDS}, \hyperpage{7}
+    \subitem {alphaMask}, \hyperpage{7}
+    \subitem {blueMask}, \hyperpage{7}
+    \subitem {greenMask}, \hyperpage{7}
+    \subitem {redMask}, \hyperpage{8}
+    \subitem {xMask}, \hyperpage{8}
+  \item {\_BMPHEADER}, \hyperpage{8}
+    \subitem {HEADER}, \hyperpage{8}
+    \subitem {OFFSET}, \hyperpage{9}
+    \subitem {RESERVED1}, \hyperpage{9}
+    \subitem {RESERVED2}, \hyperpage{9}
+    \subitem {SIZE}, \hyperpage{9}
+  \item {\_DIBHEADER}, \hyperpage{9}
+    \subitem {BITSPERPIXEL}, \hyperpage{10}
+    \subitem {COLORPLANES}, \hyperpage{10}
+    \subitem {COLORS}, \hyperpage{10}
+    \subitem {COMPRESSION}, \hyperpage{10}
+    \subitem {DIBSIZE}, \hyperpage{10}
+    \subitem {HEIGHT}, \hyperpage{10}
+    \subitem {HORIZONTALRES}, \hyperpage{10}
+    \subitem {IMPORTANTCOLORS}, \hyperpage{11}
+    \subitem {SIZE}, \hyperpage{11}
+    \subitem {VERTICALRES}, \hyperpage{11}
+    \subitem {WIDTH}, \hyperpage{11}
+  \item {\_SGHEADER}, \hyperpage{11}
+    \subitem {FILESIZE}, \hyperpage{12}
+    \subitem {HEADER}, \hyperpage{12}
+
+  \indexspace
+
+  \item {alphaMask}
+    \subitem {\_BITFILEDS}, \hyperpage{7}
+
+  \indexspace
+
+  \item {BITSPERPIXEL}
+    \subitem {\_DIBHEADER}, \hyperpage{10}
+  \item {blueMask}
+    \subitem {\_BITFILEDS}, \hyperpage{7}
+
+  \indexspace
+
+  \item {check\_for\_stegano}
+    \subitem {functions.c}, \hyperpage{14}
+  \item {COLORPLANES}
+    \subitem {\_DIBHEADER}, \hyperpage{10}
+  \item {COLORS}
+    \subitem {\_DIBHEADER}, \hyperpage{10}
+  \item {COMPRESSION}
+    \subitem {\_DIBHEADER}, \hyperpage{10}
+
+  \indexspace
+
+  \item {DIBSIZE}
+    \subitem {\_DIBHEADER}, \hyperpage{10}
+
+  \indexspace
+
+  \item {FILESIZE}
+    \subitem {\_SGHEADER}, \hyperpage{12}
+  \item {functions.c}
+    \subitem {check\_for\_stegano}, \hyperpage{14}
+    \subitem {GCD}, \hyperpage{14}
+    \subitem {LCM}, \hyperpage{15}
+    \subitem {pixelArray\_read\_16bit}, \hyperpage{15}
+    \subitem {pixelArray\_read\_24bit}, \hyperpage{15}
+    \subitem {pixelArray\_read\_32bit}, \hyperpage{16}
+    \subitem {prepare\_data\_to\_write}, \hyperpage{16}
+    \subitem {read\_data\_from\_steganofile\_16bit}, \hyperpage{17}
+    \subitem {read\_data\_from\_steganofile\_24\_32bit}, \hyperpage{17}
+    \subitem {read\_file\_to\_memory}, \hyperpage{18}
+    \subitem {read\_headers}, \hyperpage{18}
+    \subitem {write\_data\_16bit}, \hyperpage{18}
+    \subitem {write\_data\_24bit}, \hyperpage{19}
+    \subitem {write\_data\_32bit}, \hyperpage{20}
+    \subitem {write\_data\_array\_to\_file}, \hyperpage{20}
+    \subitem {write\_data\_from\_image}, \hyperpage{21}
+    \subitem {write\_data\_to\_image}, \hyperpage{21}
+    \subitem {write\_headers}, \hyperpage{22}
+
+  \indexspace
+
+  \item {GCD}
+    \subitem {functions.c}, \hyperpage{14}
+  \item {greenMask}
+    \subitem {\_BITFILEDS}, \hyperpage{7}
+
+  \indexspace
+
+  \item {HEADER}
+    \subitem {\_BMPHEADER}, \hyperpage{8}
+    \subitem {\_SGHEADER}, \hyperpage{12}
+  \item {HEIGHT}
+    \subitem {\_DIBHEADER}, \hyperpage{10}
+  \item {HORIZONTALRES}
+    \subitem {\_DIBHEADER}, \hyperpage{10}
+
+  \indexspace
+
+  \item {IMPORTANTCOLORS}
+    \subitem {\_DIBHEADER}, \hyperpage{11}
+
+  \indexspace
+
+  \item {LCM}
+    \subitem {functions.c}, \hyperpage{15}
+
+  \indexspace
+
+  \item {OFFSET}
+    \subitem {\_BMPHEADER}, \hyperpage{9}
+
+  \indexspace
+
+  \item {pixelArray\_read\_16bit}
+    \subitem {functions.c}, \hyperpage{15}
+  \item {pixelArray\_read\_24bit}
+    \subitem {functions.c}, \hyperpage{15}
+  \item {pixelArray\_read\_32bit}
+    \subitem {functions.c}, \hyperpage{16}
+  \item {prepare\_data\_to\_write}
+    \subitem {functions.c}, \hyperpage{16}
+
+  \indexspace
+
+  \item {read\_data\_from\_steganofile\_16bit}
+    \subitem {functions.c}, \hyperpage{17}
+  \item {read\_data\_from\_steganofile\_24\_32bit}
+    \subitem {functions.c}, \hyperpage{17}
+  \item {read\_file\_to\_memory}
+    \subitem {functions.c}, \hyperpage{18}
+  \item {read\_headers}
+    \subitem {functions.c}, \hyperpage{18}
+  \item {redMask}
+    \subitem {\_BITFILEDS}, \hyperpage{8}
+  \item {RESERVED1}
+    \subitem {\_BMPHEADER}, \hyperpage{9}
+  \item {RESERVED2}
+    \subitem {\_BMPHEADER}, \hyperpage{9}
+
+  \indexspace
+
+  \item {SIZE}
+    \subitem {\_BMPHEADER}, \hyperpage{9}
+    \subitem {\_DIBHEADER}, \hyperpage{11}
+  \item {src/functions.c}, \hyperpage{13}
+
+  \indexspace
+
+  \item {VERTICALRES}
+    \subitem {\_DIBHEADER}, \hyperpage{11}
+
+  \indexspace
+
+  \item {WIDTH}
+    \subitem {\_DIBHEADER}, \hyperpage{11}
+  \item {write\_data\_16bit}
+    \subitem {functions.c}, \hyperpage{18}
+  \item {write\_data\_24bit}
+    \subitem {functions.c}, \hyperpage{19}
+  \item {write\_data\_32bit}
+    \subitem {functions.c}, \hyperpage{20}
+  \item {write\_data\_array\_to\_file}
+    \subitem {functions.c}, \hyperpage{20}
+  \item {write\_data\_from\_image}
+    \subitem {functions.c}, \hyperpage{21}
+  \item {write\_data\_to\_image}
+    \subitem {functions.c}, \hyperpage{21}
+  \item {write\_headers}
+    \subitem {functions.c}, \hyperpage{22}
+
+  \indexspace
+
+  \item {xMask}
+    \subitem {\_BITFILEDS}, \hyperpage{8}
+
+\end{theindex}

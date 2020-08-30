@@ -57,6 +57,9 @@ int read_headers(FILE *filePointer, BMPHEADER *bmpHeader,
     int importantcolors;
     /* MAIN */
     header[2] = '\0';
+    /*
+     * odczytanie nagłówka pliku i sprawdzenie czy jest plikiem BMP
+     */
     int tmp = fread(header, sizeof(char), 2, filePointer);
     if (tmp != 2) {
         printf("Błąd, nie można odczytać pierwszych dwóch bajtów!\n");
@@ -66,6 +69,9 @@ int read_headers(FILE *filePointer, BMPHEADER *bmpHeader,
         printf("Błędna sygnatura, plik nie jest plikiem BMP!\n");
         return 0;
     }
+    /*
+     * odczytanie i zapisanie pierwszego nagłówka pliku BMP
+     */
     reserved1[2] = '\0';
     fread(&size, 2 * sizeof(short), 1, filePointer);
     fread(reserved1, sizeof(char), 2, filePointer);
@@ -77,7 +83,9 @@ int read_headers(FILE *filePointer, BMPHEADER *bmpHeader,
     bmpHeader->RESERVED1 = reserved1;
     bmpHeader->RESERVED2 = reserved2;
     bmpHeader->SIZE = size;
-    /* DIB */
+    /*
+     * odczytanie i zapisanie do zmiennych nagłówka DIB
+     * */
     fread(&dibsize, 2 * sizeof(short), 1, filePointer);
     fread(&width, 2 * sizeof(short), 1, filePointer);
     fread(&height, 2 * sizeof(short), 1, filePointer);
@@ -101,6 +109,9 @@ int read_headers(FILE *filePointer, BMPHEADER *bmpHeader,
     dibHeader->VERTICALRES = verticalres;
     dibHeader->COLORS = colors;
     dibHeader->IMPORTANTCOLORS = importantcolors;
+    /*
+     * workaround dla głębi kolorów 32, odczytywanie masek bitowych kolorów
+     */
     if (dibHeader->BITSPERPIXEL == 32) {
         BITFIELDS bitFields;
         fread(&bitFields.redMask, sizeof(uint32_t), 1, filePointer);
@@ -120,6 +131,9 @@ uint8_t *pixelArray_read_16bit(FILE *filePointer, int pixelCount) {
     }
     uint8_t tempARGB;
     int i = 0;
+    /*
+     * odczyt poszczególnych pixeli
+     */
     if (filePointer) {
         for (i = 0; i < 2 * pixelCount; i++) {
             fread(&tempARGB, sizeof(uint8_t), 1, filePointer);
@@ -139,6 +153,9 @@ uint8_t *pixelArray_read_24bit(FILE *filePointer, int pixelCount) {
     }
     uint8_t temp;
     int i = 0;
+    /*
+     * odczyt poszczególnych pixeli
+     */
     if (filePointer) {
         for (i = 0; i < 3 * pixelCount; i++) {
             fread(&temp, sizeof(uint8_t), 1, filePointer);
@@ -156,6 +173,9 @@ uint8_t *pixelArray_read_32bit(FILE *filePointer, int pixelCount) {
         printf("Błąd alokacji pamięci tablicy pixeli!\n");
         return 0;
     }
+    /*
+     * odczyt poszczególnych pixeli
+     */
     if (filePointer) {
         int i = 0;
         for (i = 0; i < 4 * pixelCount; i++) {
@@ -173,7 +193,9 @@ uint8_t *read_file_to_memory(FILE *filePointer, int *filesize, int *arrsize) {
     if (!filePointer) {
         return 0;
     }
-
+    /*
+     * obliczenie wielkości pliku
+     */
     fseek(filePointer, 0, SEEK_END);
     *filesize = ftell(filePointer);
     fseek(filePointer, 0, SEEK_SET);
@@ -188,6 +210,9 @@ uint8_t *read_file_to_memory(FILE *filePointer, int *filesize, int *arrsize) {
 }
 
 SGHEADER header_generate(uint32_t filesize) {
+    /*
+     * wygenerowanie nagłówka steganograficznego
+     */
     SGHEADER header;
     header.HEADER = "SG";
     header.FILESIZE = filesize;
@@ -202,6 +227,9 @@ uint8_t *prepare_data_to_write(uint8_t *dataTab, int bitsPerPixel,
         printf("Błąd alokacji pamięci dla tablicy!\n");
         return 0;
     }
+    /*
+     * podzielenie tablicy bajtów na mniejsze porcje po tyle bitów na bajt, ile podał użytkownik
+     */
     uint8_t mask = 0;
     int i = 0;
     for (i = 0; i < (oldArrSize * 8 / bitsPerPixel); i++) {
@@ -221,11 +249,11 @@ uint8_t *prepare_data_to_write(uint8_t *dataTab, int bitsPerPixel,
 
 BMPHEADER prepare_new_header(BMPHEADER bmpHeader,
                                     SGHEADER sgHeader,
-                                    DIBHEADER dibHeader) {
+                                    DIBHEADER dibHeader, int newSize) {
     BMPHEADER newBmpHeader;
     newBmpHeader.HEADER = bmpHeader.HEADER;
     newBmpHeader.OFFSET = sizeof(bmpHeader) + sizeof(dibHeader);
-    newBmpHeader.SIZE = bmpHeader.SIZE;
+    newBmpHeader.SIZE = newSize;
     newBmpHeader.RESERVED1 = sgHeader.HEADER;
     newBmpHeader.RESERVED2 = sgHeader.FILESIZE;
     return newBmpHeader;
@@ -287,6 +315,7 @@ int write_data_32bit(uint8_t *dataTab, uint8_t *pixelArray,
             "Błąd, zbyt dużo danych do zapisania!\n");
         return 0;
     }
+    int bytesPerLine = dibHeader.WIDTH * 4; /* (for 32 bit images) */
     int i = 0;
     uint8_t mask = (1 << bitsPerPixel) - 1;
     for (i = 0; i < (arrSize); i++) {
@@ -299,7 +328,6 @@ int write_data_32bit(uint8_t *dataTab, uint8_t *pixelArray,
         printf("Błąd zapisu nagłówków do pliku!\n");
         return 0;
     }
-    int bytesPerLine = dibHeader.WIDTH * 4; /* (for 32 bit images) */
     uint8_t *linebuf;
     linebuf = (uint8_t *)malloc(bytesPerLine * sizeof(uint8_t));
     if (linebuf == NULL) {
@@ -421,17 +449,48 @@ void write_data_to_image(uint8_t *pixelArray, uint8_t *dataArray,
                          FILE *filePointer,
                          uint16_t dataFileSize, int bitsPerPixelStegano,
                          int bitsPerPixel, int pixels, int arrSize) {
+    if(LCM(bitsPerPixelStegano, 8)!=8){
+        printf("Błąd: ilość bitów do zapisania w pliku nie może być inna niż dzielnik 8\n");
+        return;
+    }
     SGHEADER sgHeader =
         header_generate(dataFileSize);
     int newArrSize = 0;
     uint8_t *finalDataTable = prepare_data_to_write(
         dataArray, bitsPerPixelStegano, arrSize, &newArrSize);
-    if(finalDataTable==0){
+    if(finalDataTable==0) {
         printf("Błąd alokacji pamięci!\n");
         return;
     }
+    int newSize = 0;
+    int bytesPerLine=0;
+    switch (bitsPerPixel){
+        case 16:
+            bytesPerLine = dibHeader.WIDTH * 2; /* (for 16 bit images) */
+            if (bytesPerLine % 4 == 2) {
+                bytesPerLine += 2;
+            }
+            newSize = bytesPerLine * dibHeader.HEIGHT + sizeof(bmpHeader) + sizeof(dibHeader);
+            break;
+        case 24:
+            bytesPerLine = dibHeader.WIDTH * 3; /* (for 24 bit images) */
+            if (bytesPerLine & 0x0003) {
+                bytesPerLine |= 0x0003;
+                ++bytesPerLine;
+            }
+            newSize = bytesPerLine * dibHeader.HEIGHT + sizeof(bmpHeader) + sizeof(dibHeader);
+        break;
+        case 32:
+            bytesPerLine = dibHeader.WIDTH * 4; /* (for 16 bit images) */
+            newSize = bytesPerLine * dibHeader.HEIGHT + sizeof(bmpHeader) + sizeof(dibHeader);
+            break;
+        default:
+            newSize=0;
+            break;
+    }
+    newSize = bmpHeader.SIZE;
     BMPHEADER newHeader =
-        prepare_new_header(bmpHeader, sgHeader, dibHeader);
+        prepare_new_header(bmpHeader, sgHeader, dibHeader, newSize);
     if (bitsPerPixel == 24) {
         if(write_data_24bit(finalDataTable, pixelArray, newHeader, dibHeader,
                          filePointer, pixels, newArrSize,

@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Steganografia w pliku .BMP: Dokumentacja struktury SGHEADER</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Steganografia w pliku .BMP
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Wygenerowano przez Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Szukaj');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Szukaj');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Pola danych</a>  </div>
+  <div class="headertitle">
+<div class="title">Dokumentacja struktury SGHEADER</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="structures_8h_source.html">structures.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Pola danych</h2></td></tr>
+<tr class="memitem:a319e160edb6722b0f8b21d0fe0c3e575"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structSGHEADER.html#a319e160edb6722b0f8b21d0fe0c3e575">HEADER</a></td></tr>
+<tr class="separator:a319e160edb6722b0f8b21d0fe0c3e575"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99582558df6cbcc6421bf4503077fc86"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structSGHEADER.html#a99582558df6cbcc6421bf4503077fc86">FILESIZE</a></td></tr>
+<tr class="separator:a99582558df6cbcc6421bf4503077fc86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82ce9295660f5b5c306f2eb0936fff73"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structSGHEADER.html#a82ce9295660f5b5c306f2eb0936fff73">BITSPERPIXEL</a></td></tr>
+<tr class="separator:a82ce9295660f5b5c306f2eb0936fff73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Opis szczegółowy</h2>
+<div class="textblock"><p>struktura opisująca nagłówek specyficzny dla pliku z ukrytym plikiem, zapisywana zawsze na pierwszych 72 pojedynczych bitach tablicy pixeli </p>
+</div><h2 class="groupheader">Dokumentacja pól</h2>
+<a id="a82ce9295660f5b5c306f2eb0936fff73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82ce9295660f5b5c306f2eb0936fff73">&#9670;&nbsp;</a></span>BITSPERPIXEL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t SGHEADER::BITSPERPIXEL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>na ilu bitach w pixelu zostały zapisane dane (1 bajt) </p>
+
+</div>
+</div>
+<a id="a99582558df6cbcc6421bf4503077fc86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99582558df6cbcc6421bf4503077fc86">&#9670;&nbsp;</a></span>FILESIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t SGHEADER::FILESIZE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>wielkość pliku (1 bajt) </p>
+
+</div>
+</div>
+<a id="a319e160edb6722b0f8b21d0fe0c3e575"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a319e160edb6722b0f8b21d0fe0c3e575">&#9670;&nbsp;</a></span>HEADER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* SGHEADER::HEADER</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>nagłówek steganograficzny, jeżeli jest równy "SG\0", plik zawiera ukryte informacje (wielkość: 2 bajty) </p>
+
+</div>
+</div>
+<hr/>Dokumentacja dla tej struktury została wygenerowana z pliku:<ul>
+<li>include/<a class="el" href="structures_8h_source.html">structures.h</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Wygenerowano przez &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.17
+</small></address>
+</body>
+</html>

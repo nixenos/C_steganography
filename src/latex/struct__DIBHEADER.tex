@@ -1,0 +1,108 @@
+\hypertarget{struct__DIBHEADER}{}\doxysection{Dokumentacja struktury \+\_\+\+D\+I\+B\+H\+E\+A\+D\+ER}
+\label{struct__DIBHEADER}\index{\_DIBHEADER@{\_DIBHEADER}}
+
+
+{\ttfamily \#include $<$structures.\+h$>$}
+
+\doxysubsection*{Pola danych}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{struct__DIBHEADER_add0bbab1d06c603614c5e625e6972f61}{D\+I\+B\+S\+I\+ZE}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{struct__DIBHEADER_a640d38033c964974f28cd5107a7d4bdf}{W\+I\+D\+TH}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{struct__DIBHEADER_ab2fe8bbe59d88f43eac7bd02535f9341}{H\+E\+I\+G\+HT}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{struct__DIBHEADER_a549f33b611c966591ecac1fa5c5c8c27}{C\+O\+L\+O\+R\+P\+L\+A\+N\+ES}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{struct__DIBHEADER_adb23d9da3153aedcff0bc354c869eb16}{B\+I\+T\+S\+P\+E\+R\+P\+I\+X\+EL}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{struct__DIBHEADER_a9b0409663f994c8dc367299974866d2f}{C\+O\+M\+P\+R\+E\+S\+S\+I\+ON}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{struct__DIBHEADER_a1fe42df93cc9a162eaaa94dd5fcaf8d5}{S\+I\+ZE}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{struct__DIBHEADER_a7d056618793ac04b5e3a9898328ec8b2}{H\+O\+R\+I\+Z\+O\+N\+T\+A\+L\+R\+ES}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{struct__DIBHEADER_a2d111164112b405c5a43c1d3fe17ea6b}{V\+E\+R\+T\+I\+C\+A\+L\+R\+ES}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{struct__DIBHEADER_a082ea0a552e25909dcde6ccea45393b4}{C\+O\+L\+O\+RS}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{struct__DIBHEADER_a88aabe1d3324e9b20eb61112e0267783}{I\+M\+P\+O\+R\+T\+A\+N\+T\+C\+O\+L\+O\+RS}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+struktura zawierająca podstawowy nagłówek w standardzie D\+I\+B\+H\+E\+A\+D\+ER B\+I\+T\+M\+A\+P\+I\+N\+F\+O\+H\+E\+A\+D\+ER dla Windows 
+
+\doxysubsection{Dokumentacja pól}
+\mbox{\Hypertarget{struct__DIBHEADER_adb23d9da3153aedcff0bc354c869eb16}\label{struct__DIBHEADER_adb23d9da3153aedcff0bc354c869eb16}} 
+\index{\_DIBHEADER@{\_DIBHEADER}!BITSPERPIXEL@{BITSPERPIXEL}}
+\index{BITSPERPIXEL@{BITSPERPIXEL}!\_DIBHEADER@{\_DIBHEADER}}
+\doxysubsubsection{\texorpdfstring{BITSPERPIXEL}{BITSPERPIXEL}}
+{\footnotesize\ttfamily uint16\+\_\+t \+\_\+\+D\+I\+B\+H\+E\+A\+D\+E\+R\+::\+B\+I\+T\+S\+P\+E\+R\+P\+I\+X\+EL}
+
+głębia kolorów, ile bitów przypada na pixel \mbox{\Hypertarget{struct__DIBHEADER_a549f33b611c966591ecac1fa5c5c8c27}\label{struct__DIBHEADER_a549f33b611c966591ecac1fa5c5c8c27}} 
+\index{\_DIBHEADER@{\_DIBHEADER}!COLORPLANES@{COLORPLANES}}
+\index{COLORPLANES@{COLORPLANES}!\_DIBHEADER@{\_DIBHEADER}}
+\doxysubsubsection{\texorpdfstring{COLORPLANES}{COLORPLANES}}
+{\footnotesize\ttfamily uint16\+\_\+t \+\_\+\+D\+I\+B\+H\+E\+A\+D\+E\+R\+::\+C\+O\+L\+O\+R\+P\+L\+A\+N\+ES}
+
+tablica koloru \mbox{\Hypertarget{struct__DIBHEADER_a082ea0a552e25909dcde6ccea45393b4}\label{struct__DIBHEADER_a082ea0a552e25909dcde6ccea45393b4}} 
+\index{\_DIBHEADER@{\_DIBHEADER}!COLORS@{COLORS}}
+\index{COLORS@{COLORS}!\_DIBHEADER@{\_DIBHEADER}}
+\doxysubsubsection{\texorpdfstring{COLORS}{COLORS}}
+{\footnotesize\ttfamily uint32\+\_\+t \+\_\+\+D\+I\+B\+H\+E\+A\+D\+E\+R\+::\+C\+O\+L\+O\+RS}
+
+liczba kolorów w palecie, 0 dla wartości domyślnej $2^{n}$ \mbox{\Hypertarget{struct__DIBHEADER_a9b0409663f994c8dc367299974866d2f}\label{struct__DIBHEADER_a9b0409663f994c8dc367299974866d2f}} 
+\index{\_DIBHEADER@{\_DIBHEADER}!COMPRESSION@{COMPRESSION}}
+\index{COMPRESSION@{COMPRESSION}!\_DIBHEADER@{\_DIBHEADER}}
+\doxysubsubsection{\texorpdfstring{COMPRESSION}{COMPRESSION}}
+{\footnotesize\ttfamily uint32\+\_\+t \+\_\+\+D\+I\+B\+H\+E\+A\+D\+E\+R\+::\+C\+O\+M\+P\+R\+E\+S\+S\+I\+ON}
+
+kompresja, rodzaj algorytmu \mbox{\Hypertarget{struct__DIBHEADER_add0bbab1d06c603614c5e625e6972f61}\label{struct__DIBHEADER_add0bbab1d06c603614c5e625e6972f61}} 
+\index{\_DIBHEADER@{\_DIBHEADER}!DIBSIZE@{DIBSIZE}}
+\index{DIBSIZE@{DIBSIZE}!\_DIBHEADER@{\_DIBHEADER}}
+\doxysubsubsection{\texorpdfstring{DIBSIZE}{DIBSIZE}}
+{\footnotesize\ttfamily uint32\+\_\+t \+\_\+\+D\+I\+B\+H\+E\+A\+D\+E\+R\+::\+D\+I\+B\+S\+I\+ZE}
+
+wielkość nagłówka w bajtach \mbox{\Hypertarget{struct__DIBHEADER_ab2fe8bbe59d88f43eac7bd02535f9341}\label{struct__DIBHEADER_ab2fe8bbe59d88f43eac7bd02535f9341}} 
+\index{\_DIBHEADER@{\_DIBHEADER}!HEIGHT@{HEIGHT}}
+\index{HEIGHT@{HEIGHT}!\_DIBHEADER@{\_DIBHEADER}}
+\doxysubsubsection{\texorpdfstring{HEIGHT}{HEIGHT}}
+{\footnotesize\ttfamily uint32\+\_\+t \+\_\+\+D\+I\+B\+H\+E\+A\+D\+E\+R\+::\+H\+E\+I\+G\+HT}
+
+wysokość obrazu w pixelach (ze znakiem) \mbox{\Hypertarget{struct__DIBHEADER_a7d056618793ac04b5e3a9898328ec8b2}\label{struct__DIBHEADER_a7d056618793ac04b5e3a9898328ec8b2}} 
+\index{\_DIBHEADER@{\_DIBHEADER}!HORIZONTALRES@{HORIZONTALRES}}
+\index{HORIZONTALRES@{HORIZONTALRES}!\_DIBHEADER@{\_DIBHEADER}}
+\doxysubsubsection{\texorpdfstring{HORIZONTALRES}{HORIZONTALRES}}
+{\footnotesize\ttfamily uint32\+\_\+t \+\_\+\+D\+I\+B\+H\+E\+A\+D\+E\+R\+::\+H\+O\+R\+I\+Z\+O\+N\+T\+A\+L\+R\+ES}
+
+rozdzielczość na wysokość \mbox{\Hypertarget{struct__DIBHEADER_a88aabe1d3324e9b20eb61112e0267783}\label{struct__DIBHEADER_a88aabe1d3324e9b20eb61112e0267783}} 
+\index{\_DIBHEADER@{\_DIBHEADER}!IMPORTANTCOLORS@{IMPORTANTCOLORS}}
+\index{IMPORTANTCOLORS@{IMPORTANTCOLORS}!\_DIBHEADER@{\_DIBHEADER}}
+\doxysubsubsection{\texorpdfstring{IMPORTANTCOLORS}{IMPORTANTCOLORS}}
+{\footnotesize\ttfamily uint32\+\_\+t \+\_\+\+D\+I\+B\+H\+E\+A\+D\+E\+R\+::\+I\+M\+P\+O\+R\+T\+A\+N\+T\+C\+O\+L\+O\+RS}
+
+\char`\"{}ważne kolory\char`\"{}, wartość zwykle pomijana, 0 dla wszystkich kolorów jako ważnych \mbox{\Hypertarget{struct__DIBHEADER_a1fe42df93cc9a162eaaa94dd5fcaf8d5}\label{struct__DIBHEADER_a1fe42df93cc9a162eaaa94dd5fcaf8d5}} 
+\index{\_DIBHEADER@{\_DIBHEADER}!SIZE@{SIZE}}
+\index{SIZE@{SIZE}!\_DIBHEADER@{\_DIBHEADER}}
+\doxysubsubsection{\texorpdfstring{SIZE}{SIZE}}
+{\footnotesize\ttfamily uint32\+\_\+t \+\_\+\+D\+I\+B\+H\+E\+A\+D\+E\+R\+::\+S\+I\+ZE}
+
+wielkość pliku, dopuszczajna wartość \char`\"{}dummy\char`\"{} wynosząca 0 \mbox{\Hypertarget{struct__DIBHEADER_a2d111164112b405c5a43c1d3fe17ea6b}\label{struct__DIBHEADER_a2d111164112b405c5a43c1d3fe17ea6b}} 
+\index{\_DIBHEADER@{\_DIBHEADER}!VERTICALRES@{VERTICALRES}}
+\index{VERTICALRES@{VERTICALRES}!\_DIBHEADER@{\_DIBHEADER}}
+\doxysubsubsection{\texorpdfstring{VERTICALRES}{VERTICALRES}}
+{\footnotesize\ttfamily uint32\+\_\+t \+\_\+\+D\+I\+B\+H\+E\+A\+D\+E\+R\+::\+V\+E\+R\+T\+I\+C\+A\+L\+R\+ES}
+
+rozdzielczość na szerokość \mbox{\Hypertarget{struct__DIBHEADER_a640d38033c964974f28cd5107a7d4bdf}\label{struct__DIBHEADER_a640d38033c964974f28cd5107a7d4bdf}} 
+\index{\_DIBHEADER@{\_DIBHEADER}!WIDTH@{WIDTH}}
+\index{WIDTH@{WIDTH}!\_DIBHEADER@{\_DIBHEADER}}
+\doxysubsubsection{\texorpdfstring{WIDTH}{WIDTH}}
+{\footnotesize\ttfamily uint32\+\_\+t \+\_\+\+D\+I\+B\+H\+E\+A\+D\+E\+R\+::\+W\+I\+D\+TH}
+
+szerokość obrazu w pixelach (ze znakiem) 
+
+Dokumentacja dla tej struktury została wygenerowana z pliku\+:\begin{DoxyCompactItemize}
+\item 
+include/structures.\+h\end{DoxyCompactItemize}
