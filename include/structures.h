@@ -6,6 +6,13 @@
  * struktura zawierająca dane ze standardowego nagłówka pliku BMP
  *
  * */
+ typedef struct _BMPHEADERDUMMY{
+     uint16_t HEADER;
+     uint32_t SIZE;
+     uint16_t RESERVED1;
+     uint16_t RESERVED2;
+     uint32_t OFFSET;
+ } BMPHEADERDUMMY;
 typedef struct _BMPHEADER {
     char *HEADER;  /**< nagłówek pliku, rozpoznaje typ pliku, jeżeli nie jest
                       "BM",  nie jest plikiem BMP standardu Windows NT */

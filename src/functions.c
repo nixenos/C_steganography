@@ -233,10 +233,16 @@ uint8_t *prepare_data_to_write(uint8_t *dataTab, int bitsPerPixel,
     uint8_t mask = 0;
     int i = 0;
     for (i = 0; i < (oldArrSize * 8 / bitsPerPixel); i++) {
-        if (mask == 0) {
+        if (mask == 0){
+            /*
+             * resetowanie maski
+             */
             mask = (1 << bitsPerPixel) - 1;
         }
         uint8_t help = 0;
+        /*
+         * dzielenie na "paczki"
+         */
         help = dataTab[i / (8 / bitsPerPixel)] & mask;
         help = help >> ((i % (8 / bitsPerPixel)) * bitsPerPixel);
 
@@ -252,7 +258,7 @@ BMPHEADER prepare_new_header(BMPHEADER bmpHeader,
                                     DIBHEADER dibHeader, int newSize) {
     BMPHEADER newBmpHeader;
     newBmpHeader.HEADER = bmpHeader.HEADER;
-    newBmpHeader.OFFSET = sizeof(bmpHeader) + sizeof(dibHeader);
+    newBmpHeader.OFFSET = bmpHeader.OFFSET;
     newBmpHeader.SIZE = newSize;
     newBmpHeader.RESERVED1 = sgHeader.HEADER;
     newBmpHeader.RESERVED2 = sgHeader.FILESIZE;
@@ -264,19 +270,32 @@ int write_headers(BMPHEADER bmpHeader, DIBHEADER dibHeader,
     if (!filePointer) {
         return 0;
     }
-    uint32_t offset = sizeof(bmpHeader) + sizeof(dibHeader);
+    /*
+     * aby poprawnie obliczyć wielkość nagłówków
+     */
+    BMPHEADERDUMMY bmpHeaderDummy;
+    uint32_t offset = sizeof(bmpHeaderDummy) + sizeof(dibHeader) -2;
     fseek(filePointer, 0, SEEK_SET);
+    /*
+     * zapisanie BMPHEADER
+     */
     fwrite(bmpHeader.HEADER, sizeof(char), 2, filePointer);
     fwrite(&bmpHeader.SIZE, sizeof(uint32_t), 1, filePointer);
     fwrite(bmpHeader.RESERVED1, sizeof(char), 2, filePointer);
     fwrite(&bmpHeader.RESERVED2, sizeof(uint16_t), 1, filePointer);
     if (dibHeader.BITSPERPIXEL == 32) {
+        /*
+         * dla 32-bit dodajemy maski kolorów
+         */
         uint32_t offset2 =
-            sizeof(bmpHeader) + sizeof(dibHeader) + 4 * sizeof(uint32_t);
+            sizeof(bmpHeaderDummy) + sizeof(dibHeader) + 4 * sizeof(uint32_t) - 2;
         fwrite(&offset2, sizeof(uint32_t), 1, filePointer);
     } else {
         fwrite(&offset, sizeof(uint32_t), 1, filePointer);
     }
+    /*
+     * zapisanie DIBHEADER
+     */
     fwrite(&dibHeader.DIBSIZE, 2 * sizeof(short), 1, filePointer);
     fwrite(&dibHeader.WIDTH, 2 * sizeof(short), 1, filePointer);
     fwrite(&dibHeader.HEIGHT, 2 * sizeof(short), 1, filePointer);
@@ -293,6 +312,9 @@ int write_headers(BMPHEADER bmpHeader, DIBHEADER dibHeader,
     fwrite(&dibHeader.VERTICALRES, 2 * sizeof(short), 1, filePointer);
     fwrite(&dibHeader.COLORS, 2 * sizeof(short), 1, filePointer);
     fwrite(&dibHeader.IMPORTANTCOLORS, 2 * sizeof(short), 1, filePointer);
+    /*
+     * maski kolorów dla 32-bitowych obrazów
+     */
     if (dibHeader.BITSPERPIXEL == 32) {
         uint32_t greenMask = 65280;
         uint32_t redMask = 16711680;
@@ -310,6 +332,9 @@ int write_data_32bit(uint8_t *dataTab, uint8_t *pixelArray,
                      BMPHEADER header, DIBHEADER dibHeader,
                      FILE *filePointer, int pixels, int arrSize,
                      int bitsPerPixel) {
+    /*
+     * sprawdzenie, czy plik zmieści się w obrqzie, jest podzielony na paczki, więc jest to poprawne sprawdzenie
+     */
     if (arrSize > (4 * pixels)) {
         printf(
             "Błąd, zbyt dużo danych do zapisania!\n");
@@ -319,6 +344,9 @@ int write_data_32bit(uint8_t *dataTab, uint8_t *pixelArray,
     int i = 0;
     uint8_t mask = (1 << bitsPerPixel) - 1;
     for (i = 0; i < (arrSize); i++) {
+        /*
+         * zapisanie i maskowanie
+         */
         pixelArray[i] = (pixelArray[i] & (~mask)) | dataTab[i];
     }
     if(write_headers(header, dibHeader, filePointer)){
@@ -335,6 +363,9 @@ int write_data_32bit(uint8_t *dataTab, uint8_t *pixelArray,
         return 0;
     }
     unsigned int line = 0;
+    /*
+     * zapis linia po linii, aby zachować poprawną liczbę bajtów w linii
+     */
     for (line = 0; line < dibHeader.HEIGHT; line++) {
         for (i = 0; i < bytesPerLine; i++) {
             uint8_t temp = pixelArray[line * bytesPerLine + i];
@@ -349,6 +380,9 @@ int write_data_24bit(uint8_t *dataTab, uint8_t *pixelArray,
                      BMPHEADER header, DIBHEADER dibHeader,
                      FILE *filePointer, int pixels, int arrSize,
                      int bitsPerPixel) {
+    /*
+     * sprawdzenie, czy plik zmieści się w obrqzie, jest podzielony na paczki, więc jest to poprawne sprawdzenie
+     */
     if (arrSize > 3 * pixels) {
         printf(
             "Błąd, zbyt dużo danych do zapisania!\n");
@@ -358,6 +392,9 @@ int write_data_24bit(uint8_t *dataTab, uint8_t *pixelArray,
     int i = 0;
 
     for (i = 0; i < (arrSize); i++) {
+        /*
+         * zapisanie i maskowanie
+         */
         pixelArray[i] = (pixelArray[i] & (~mask)) | dataTab[i];
     }
     if(write_headers(header, dibHeader, filePointer)){
@@ -382,6 +419,9 @@ int write_data_24bit(uint8_t *dataTab, uint8_t *pixelArray,
         return 0;
     }
 
+    /*
+     * zapis linia po linii, aby zachować poprawną liczbę bajtów w linii
+     */
     unsigned int line = 0;
     for (line = 0; line < dibHeader.HEIGHT; line++) {
         for (i = 0; i < bytesPerLine; i++) {
@@ -398,6 +438,9 @@ int write_data_16bit(uint8_t *dataTab, uint8_t *pixelArray,
                      BMPHEADER header, DIBHEADER dibHeader,
                      FILE *filePointer, int pixels,
                      int arrSize) {
+    /*
+     * sprawdzenie, czy plik zmieści się w obrqzie, jest podzielony na paczki, więc jest to poprawne sprawdzenie
+     */
     if (arrSize > 2 * pixels) {
         printf(
             "Zbyt dużo danych do zapisania!\n");
@@ -425,6 +468,9 @@ int write_data_16bit(uint8_t *dataTab, uint8_t *pixelArray,
     }
 
     for (i = 0; i < arrSize; i++) {
+        /*
+         * zapisanie i maskowanie
+         */
         if (i % 2 == 0) {
             pixelArray[i] = (pixelArray[i] & (~1)) | dataTab[i];
         } else {
@@ -432,6 +478,9 @@ int write_data_16bit(uint8_t *dataTab, uint8_t *pixelArray,
             pixelArray[i] = (pixelArray[i] & (~4)) | temp;
         }
     }
+    /*
+     * zapis linia po linii, aby zachować poprawną liczbę bajtów w linii
+     */
     unsigned int line = 0;
     for (line = 0; line < dibHeader.HEIGHT; line++) {
         for (i = 0; i < bytesPerLine; i++) {
@@ -462,39 +511,15 @@ void write_data_to_image(uint8_t *pixelArray, uint8_t *dataArray,
         printf("Błąd alokacji pamięci!\n");
         return;
     }
-    int newSize = 0;
-    int bytesPerLine=0;
-    switch (bitsPerPixel){
-        case 16:
-            bytesPerLine = dibHeader.WIDTH * 2; /* (for 16 bit images) */
-            if (bytesPerLine % 4 == 2) {
-                bytesPerLine += 2;
-            }
-            newSize = bytesPerLine * dibHeader.HEIGHT + sizeof(bmpHeader) + sizeof(dibHeader);
-            break;
-        case 24:
-            bytesPerLine = dibHeader.WIDTH * 3; /* (for 24 bit images) */
-            if (bytesPerLine & 0x0003) {
-                bytesPerLine |= 0x0003;
-                ++bytesPerLine;
-            }
-            newSize = bytesPerLine * dibHeader.HEIGHT + sizeof(bmpHeader) + sizeof(dibHeader);
-        break;
-        case 32:
-            bytesPerLine = dibHeader.WIDTH * 4; /* (for 16 bit images) */
-            newSize = bytesPerLine * dibHeader.HEIGHT + sizeof(bmpHeader) + sizeof(dibHeader);
-            break;
-        default:
-            newSize=0;
-            break;
-    }
-    newSize = bmpHeader.SIZE;
     BMPHEADER newHeader =
-        prepare_new_header(bmpHeader, sgHeader, dibHeader, newSize);
+        prepare_new_header(bmpHeader, sgHeader, dibHeader, bmpHeader.SIZE);
     if (bitsPerPixel == 24) {
         if(write_data_24bit(finalDataTable, pixelArray, newHeader, dibHeader,
                          filePointer, pixels, newArrSize,
                          bitsPerPixelStegano)){
+            /*int * ptr;
+            *ptr=0;
+            fwrite(ptr, sizeof(uint8_t), newSize - bmpHeader.SIZE, filePointer);*/
               printf("Dane zapisane poprawnie!\n");
         }
         else{
