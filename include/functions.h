@@ -15,7 +15,7 @@
  * @return  int             jeżeli wczytywanie się powiedzie, zwracana jest
  * wartość 1, w przeciwnym wypadku zwracana jest wartość 0
  */
-int read_headers(FILE *filePointer, BMPHEADER *bmpHeader, DIBHEADER *dibHeader);
+int read_headers(FILE *filePointer, BMPHEADER *bmpHeader, DIBHEADER *dibHeader, BITFIELDS * bitFields);
 
 /**
  * funkcja zwracająca tablicę pixeli dla pliku z 16-bitową głębią kolorów
@@ -60,7 +60,7 @@ uint8_t *prepare_data_to_write(uint8_t *dataTab, int bitsPerPixel,
  * @param filePointer wskaźnik na plik wynikowy
  * @return 1 jeżeli wykonano poprawnie, 0 jeżeli wystąpił błąd
  */
-int write_headers(BMPHEADER bmpHeader, DIBHEADER dibHeader, FILE *filePointer);
+int write_headers(BMPHEADER bmpHeader, DIBHEADER dibHeader, FILE *filePointer, BITFIELDS bitFields);
 
 /**
  * funkcja zapisująca tablicę pixeli z podmienionymi bitami do pliku wynikowego
@@ -76,7 +76,7 @@ int write_headers(BMPHEADER bmpHeader, DIBHEADER dibHeader, FILE *filePointer);
  */
 int write_data_16bit(uint8_t *dataTab, uint8_t *pixelArray, BMPHEADER header,
                      DIBHEADER dibHeader, FILE *filePointer,
-                     int pixels, int arrSize);
+                     int pixels, int arrSize, BITFIELDS bitFields);
 
 /**
  * funkcja zapisująca tablicę pixeli z podmienionymi bitami do pliku wynikowego
@@ -92,7 +92,7 @@ int write_data_16bit(uint8_t *dataTab, uint8_t *pixelArray, BMPHEADER header,
  */
 int write_data_24bit(uint8_t *dataTab, uint8_t *pixelArray, BMPHEADER header,
                      DIBHEADER dibHeader, FILE *filePointer,
-                     int pixels, int arrSize, int bitsPerPixel);
+                     int pixels, int arrSize, int bitsPerPixel, BITFIELDS bitFields);
 
 /**
  * funkcja zapisująca tablicę pixeli z podmienionymi bitami do pliku wynikowego
@@ -108,7 +108,7 @@ int write_data_24bit(uint8_t *dataTab, uint8_t *pixelArray, BMPHEADER header,
  */
 int write_data_32bit(uint8_t *dataTab, uint8_t *pixelArray, BMPHEADER header,
                      DIBHEADER dibHeader, FILE *filePointer,
-                     int pixels, int arrSize, int bitsPerPixel);
+                     int pixels, int arrSize, int bitsPerPixel, BITFIELDS bitFields);
 
 /**
  * funkcja sprawdzająca, czy w nagłówku podanego pliku występuje nagłówek steganograficzny
@@ -143,7 +143,7 @@ void write_data_to_image(uint8_t *pixelArray, uint8_t *dataArray,
                          BMPHEADER bmpHeader, DIBHEADER dibHeader,
                          FILE *filePointer,
                          uint16_t dataFileSize, int bitsPerPixelStegano,
-                         int bitsPerPixel, int pixels, int arrSize);
+                         int bitsPerPixel, int pixels, int arrSize, BITFIELDS bitFields);
 
 /**
  * funkcja odczytująca ukryte dane z obrazów 24 i 32-bitowych

@@ -29,6 +29,7 @@ int main(int argc, char* argv[]) {
     uint8_t* dataArray;
     BMPHEADER bmpHeader;
     DIBHEADER dibHeader;
+    BITFIELDS bitFields;
     int bitsPerPixel;
     int pixelCount;
     int dataArraySize;
@@ -104,7 +105,7 @@ int main(int argc, char* argv[]) {
                        destinationImageFilename);
                 return 1;
             }
-            if(read_headers(sourceImage, &bmpHeader, &dibHeader)==0){
+            if(read_headers(sourceImage, &bmpHeader, &dibHeader, &bitFields)==0){
                 printf("Błąd odczytu nagłówków z pliku!\n");
                 fclose(sourceFile);
                 fclose(destinationImage);
@@ -147,7 +148,7 @@ int main(int argc, char* argv[]) {
                     write_data_to_image(
                         pixelArray, dataArray, bmpHeader, dibHeader,
                         destinationImage, sourceFileSize, bitsPerPixel,
-                        dibHeader.BITSPERPIXEL, pixelCount, dataArraySize);
+                        dibHeader.BITSPERPIXEL, pixelCount, dataArraySize, bitFields);
                     fclose(sourceImage);
                     fclose(sourceFile);
                     fclose(destinationImage);
@@ -202,7 +203,7 @@ int main(int argc, char* argv[]) {
                        resultFileFilename);
                 return 1;
             }
-            if(read_headers(sourceImage, &bmpHeader, &dibHeader)==0){
+            if(read_headers(sourceImage, &bmpHeader, &dibHeader, &bitFields)==0){
                 printf("Błąd odczytu nagłówków!\n");
                 return 1;
             }

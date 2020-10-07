@@ -37,7 +37,7 @@ int GCD(int a, int b) {
 int LCM(int a, int b) { return a * b / GCD(a, b); }
 
 int read_headers(FILE *filePointer, BMPHEADER *bmpHeader,
-                 DIBHEADER *dibHeader) {
+                 DIBHEADER *dibHeader, BITFIELDS * bitFields) {
     char *header = (char *)malloc(3 * sizeof(char));
     int size;
     char *reserved1 = (char *)malloc(3 * sizeof(char));
@@ -73,10 +73,10 @@ int read_headers(FILE *filePointer, BMPHEADER *bmpHeader,
      * odczytanie i zapisanie pierwszego nagłówka pliku BMP
      */
     reserved1[2] = '\0';
-    fread(&size, 2 * sizeof(short), 1, filePointer);
+    fread(&size, sizeof(uint32_t), 1, filePointer);
     fread(reserved1, sizeof(char), 2, filePointer);
     fread(&reserved2, sizeof(uint16_t), 1, filePointer);
-    fread(&offset, 2 * sizeof(short), 1, filePointer);
+    fread(&offset, sizeof(uint32_t), 1, filePointer);
 
     bmpHeader->HEADER = header;
     bmpHeader->OFFSET = offset;
@@ -86,17 +86,17 @@ int read_headers(FILE *filePointer, BMPHEADER *bmpHeader,
     /*
      * odczytanie i zapisanie do zmiennych nagłówka DIB
      * */
-    fread(&dibsize, 2 * sizeof(short), 1, filePointer);
-    fread(&width, 2 * sizeof(short), 1, filePointer);
-    fread(&height, 2 * sizeof(short), 1, filePointer);
-    fread(&colorplanes, sizeof(short), 1, filePointer);
-    fread(&bitsppixel, sizeof(short), 1, filePointer);
-    fread(&compression, 2 * sizeof(short), 1, filePointer);
-    fread(&imagesize, 2 * sizeof(short), 1, filePointer);
-    fread(&horizontalres, 2 * sizeof(short), 1, filePointer);
-    fread(&verticalres, 2 * sizeof(short), 1, filePointer);
-    fread(&colors, 2 * sizeof(short), 1, filePointer);
-    fread(&importantcolors, 2 * sizeof(short), 1, filePointer);
+    fread(&dibsize, sizeof(uint32_t), 1, filePointer);
+    fread(&width, sizeof(uint32_t), 1, filePointer);
+    fread(&height, sizeof(uint32_t), 1, filePointer);
+    fread(&colorplanes, sizeof(uint16_t), 1, filePointer);
+    fread(&bitsppixel, sizeof(uint16_t), 1, filePointer);
+    fread(&compression, sizeof(uint32_t), 1, filePointer);
+    fread(&imagesize, sizeof(uint32_t), 1, filePointer);
+    fread(&horizontalres, sizeof(uint32_t), 1, filePointer);
+    fread(&verticalres, sizeof(uint32_t), 1, filePointer);
+    fread(&colors, sizeof(uint32_t), 1, filePointer);
+    fread(&importantcolors, sizeof(uint32_t), 1, filePointer);
 
     dibHeader->DIBSIZE = dibsize;
     dibHeader->WIDTH = width;
@@ -113,11 +113,18 @@ int read_headers(FILE *filePointer, BMPHEADER *bmpHeader,
      * workaround dla głębi kolorów 32, odczytywanie masek bitowych kolorów
      */
     if (dibHeader->BITSPERPIXEL == 32) {
-        BITFIELDS bitFields;
-        fread(&bitFields.redMask, sizeof(uint32_t), 1, filePointer);
-        fread(&bitFields.greenMask, sizeof(uint32_t), 1, filePointer);
-        fread(&bitFields.blueMask, sizeof(uint32_t), 1, filePointer);
-        fread(&bitFields.alphaMask, sizeof(uint32_t), 1, filePointer);
+        uint32_t redMask;
+        uint32_t greenMask;
+        uint32_t blueMask;
+        uint32_t alphaMask;
+        fread(&redMask, sizeof(uint32_t), 1, filePointer);
+        fread(&greenMask, sizeof(uint32_t), 1, filePointer);
+        fread(&blueMask, sizeof(uint32_t), 1, filePointer);
+        fread(&alphaMask, sizeof(uint32_t), 1, filePointer);
+        bitFields->redMask = redMask;
+        bitFields->greenMask = greenMask;
+        bitFields->blueMask = blueMask;
+        bitFields->alphaMask = alphaMask;
     }
     fseek(filePointer, SEEK_SET, offset);
     return 1;
@@ -266,7 +273,7 @@ BMPHEADER prepare_new_header(BMPHEADER bmpHeader,
 }
 
 int write_headers(BMPHEADER bmpHeader, DIBHEADER dibHeader,
-                  FILE *filePointer) {
+                  FILE *filePointer, BITFIELDS bitFields) {
     if (!filePointer) {
         return 0;
     }
@@ -274,7 +281,7 @@ int write_headers(BMPHEADER bmpHeader, DIBHEADER dibHeader,
      * aby poprawnie obliczyć wielkość nagłówków
      */
     BMPHEADERDUMMY bmpHeaderDummy;
-    uint32_t offset = sizeof(bmpHeaderDummy) + sizeof(dibHeader) -2;
+    uint32_t offset = 54;
     fseek(filePointer, 0, SEEK_SET);
     /*
      * zapisanie BMPHEADER
@@ -288,7 +295,7 @@ int write_headers(BMPHEADER bmpHeader, DIBHEADER dibHeader,
          * dla 32-bit dodajemy maski kolorów
          */
         uint32_t offset2 =
-            sizeof(bmpHeaderDummy) + sizeof(dibHeader) + 4 * sizeof(uint32_t) - 2;
+            54 + 4 * sizeof(uint32_t);
         fwrite(&offset2, sizeof(uint32_t), 1, filePointer);
     } else {
         fwrite(&offset, sizeof(uint32_t), 1, filePointer);
@@ -296,34 +303,38 @@ int write_headers(BMPHEADER bmpHeader, DIBHEADER dibHeader,
     /*
      * zapisanie DIBHEADER
      */
-    fwrite(&dibHeader.DIBSIZE, 2 * sizeof(short), 1, filePointer);
-    fwrite(&dibHeader.WIDTH, 2 * sizeof(short), 1, filePointer);
-    fwrite(&dibHeader.HEIGHT, 2 * sizeof(short), 1, filePointer);
-    fwrite(&dibHeader.COLORPLANES, sizeof(short), 1, filePointer);
-    fwrite(&dibHeader.BITSPERPIXEL, sizeof(short), 1, filePointer);
+    fwrite(&dibHeader.DIBSIZE, sizeof(uint32_t), 1, filePointer);
+    fwrite(&dibHeader.WIDTH, sizeof(uint32_t), 1, filePointer);
+    fwrite(&dibHeader.HEIGHT, sizeof(uint32_t), 1, filePointer);
+    fwrite(&dibHeader.COLORPLANES, sizeof(uint16_t), 1, filePointer);
+    fwrite(&dibHeader.BITSPERPIXEL, sizeof(uint16_t), 1, filePointer);
     if (dibHeader.BITSPERPIXEL == 16) {
         uint32_t dummy = 0;
         fwrite(&dummy, sizeof(uint32_t), 1, filePointer);
     } else {
-        fwrite(&dibHeader.COMPRESSION, 2 * sizeof(short), 1, filePointer);
+        fwrite(&dibHeader.COMPRESSION, sizeof(uint32_t), 1, filePointer);
     }
-    fwrite(&dibHeader.SIZE, 2 * sizeof(short), 1, filePointer);
-    fwrite(&dibHeader.HORIZONTALRES, 2 * sizeof(short), 1, filePointer);
-    fwrite(&dibHeader.VERTICALRES, 2 * sizeof(short), 1, filePointer);
-    fwrite(&dibHeader.COLORS, 2 * sizeof(short), 1, filePointer);
-    fwrite(&dibHeader.IMPORTANTCOLORS, 2 * sizeof(short), 1, filePointer);
+    fwrite(&dibHeader.SIZE, sizeof(uint32_t), 1, filePointer);
+    fwrite(&dibHeader.HORIZONTALRES, sizeof(uint32_t), 1, filePointer);
+    fwrite(&dibHeader.VERTICALRES, sizeof(uint32_t), 1, filePointer);
+    fwrite(&dibHeader.COLORS, sizeof(uint32_t), 1, filePointer);
+    fwrite(&dibHeader.IMPORTANTCOLORS, sizeof(uint32_t), 1, filePointer);
     /*
      * maski kolorów dla 32-bitowych obrazów
      */
     if (dibHeader.BITSPERPIXEL == 32) {
-        uint32_t greenMask = 65280;
+        /*uint32_t greenMask = 65280;
         uint32_t redMask = 16711680;
         uint32_t xMask = 0;
         uint32_t blueMask = 255;
         fwrite(&redMask, sizeof(uint32_t), 1, filePointer);
         fwrite(&greenMask, sizeof(uint32_t), 1, filePointer);
         fwrite(&blueMask, sizeof(uint32_t), 1, filePointer);
-        fwrite(&xMask, sizeof(uint32_t), 1, filePointer);
+        fwrite(&xMask, sizeof(uint32_t), 1, filePointer);*/
+        fwrite(&bitFields.redMask, sizeof(uint32_t), 1, filePointer);
+        fwrite(&bitFields.greenMask, sizeof(uint32_t), 1, filePointer);
+        fwrite(&bitFields.blueMask, sizeof(uint32_t), 1, filePointer);
+        fwrite(&bitFields.alphaMask, sizeof(uint32_t), 1, filePointer);
     }
     return 1;
 }
@@ -331,7 +342,7 @@ int write_headers(BMPHEADER bmpHeader, DIBHEADER dibHeader,
 int write_data_32bit(uint8_t *dataTab, uint8_t *pixelArray,
                      BMPHEADER header, DIBHEADER dibHeader,
                      FILE *filePointer, int pixels, int arrSize,
-                     int bitsPerPixel) {
+                     int bitsPerPixel, BITFIELDS bitFields) {
     /*
      * sprawdzenie, czy plik zmieści się w obrqzie, jest podzielony na paczki, więc jest to poprawne sprawdzenie
      */
@@ -349,7 +360,7 @@ int write_data_32bit(uint8_t *dataTab, uint8_t *pixelArray,
          */
         pixelArray[i] = (pixelArray[i] & (~mask)) | dataTab[i];
     }
-    if(write_headers(header, dibHeader, filePointer)){
+    if(write_headers(header, dibHeader, filePointer, bitFields)){
         printf("Zapisywanie nagłówków do pliku...\n");
     }
     else{
@@ -379,7 +390,7 @@ int write_data_32bit(uint8_t *dataTab, uint8_t *pixelArray,
 int write_data_24bit(uint8_t *dataTab, uint8_t *pixelArray,
                      BMPHEADER header, DIBHEADER dibHeader,
                      FILE *filePointer, int pixels, int arrSize,
-                     int bitsPerPixel) {
+                     int bitsPerPixel, BITFIELDS bitFields) {
     /*
      * sprawdzenie, czy plik zmieści się w obrqzie, jest podzielony na paczki, więc jest to poprawne sprawdzenie
      */
@@ -397,7 +408,7 @@ int write_data_24bit(uint8_t *dataTab, uint8_t *pixelArray,
          */
         pixelArray[i] = (pixelArray[i] & (~mask)) | dataTab[i];
     }
-    if(write_headers(header, dibHeader, filePointer)){
+    if(write_headers(header, dibHeader, filePointer, bitFields)){
         printf("Zapisywanie nagłówków do pliku...\n");
     }
     else{
@@ -437,7 +448,7 @@ int write_data_24bit(uint8_t *dataTab, uint8_t *pixelArray,
 int write_data_16bit(uint8_t *dataTab, uint8_t *pixelArray,
                      BMPHEADER header, DIBHEADER dibHeader,
                      FILE *filePointer, int pixels,
-                     int arrSize) {
+                     int arrSize, BITFIELDS bitFields) {
     /*
      * sprawdzenie, czy plik zmieści się w obrqzie, jest podzielony na paczki, więc jest to poprawne sprawdzenie
      */
@@ -447,7 +458,7 @@ int write_data_16bit(uint8_t *dataTab, uint8_t *pixelArray,
         return 0;
     }
     int i = 0;
-    if(write_headers(header, dibHeader, filePointer)){
+    if(write_headers(header, dibHeader, filePointer, bitFields)){
         printf("Zapisywanie nagłówków do pliku...\n");
     }
     else{
@@ -497,7 +508,7 @@ void write_data_to_image(uint8_t *pixelArray, uint8_t *dataArray,
                          BMPHEADER bmpHeader, DIBHEADER dibHeader,
                          FILE *filePointer,
                          uint16_t dataFileSize, int bitsPerPixelStegano,
-                         int bitsPerPixel, int pixels, int arrSize) {
+                         int bitsPerPixel, int pixels, int arrSize, BITFIELDS bitFields) {
     if(LCM(bitsPerPixelStegano, 8)!=8){
         printf("Błąd: ilość bitów do zapisania w pliku nie może być inna niż dzielnik 8\n");
         return;
@@ -516,7 +527,7 @@ void write_data_to_image(uint8_t *pixelArray, uint8_t *dataArray,
     if (bitsPerPixel == 24) {
         if(write_data_24bit(finalDataTable, pixelArray, newHeader, dibHeader,
                          filePointer, pixels, newArrSize,
-                         bitsPerPixelStegano)){
+                         bitsPerPixelStegano, bitFields)){
             /*int * ptr;
             *ptr=0;
             fwrite(ptr, sizeof(uint8_t), newSize - bmpHeader.SIZE, filePointer);*/
@@ -532,7 +543,7 @@ void write_data_to_image(uint8_t *pixelArray, uint8_t *dataArray,
             return;
         }
         if(write_data_16bit(finalDataTable, pixelArray, newHeader, dibHeader,
-                         filePointer, pixels, newArrSize)){
+                         filePointer, pixels, newArrSize, bitFields)){
             printf("Dane zapisane poprawnie!\n");
         }
         else{
@@ -542,7 +553,7 @@ void write_data_to_image(uint8_t *pixelArray, uint8_t *dataArray,
     } else if (bitsPerPixel == 32) {
         if(write_data_32bit(finalDataTable, pixelArray, newHeader, dibHeader,
                          filePointer, pixels, newArrSize,
-                         bitsPerPixelStegano)){
+                         bitsPerPixelStegano, bitFields)){
             printf("Dane zapisane poprawnie!\n");
         }
         else{
